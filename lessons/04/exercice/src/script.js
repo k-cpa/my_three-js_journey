@@ -9,26 +9,26 @@ const scene = new THREE.Scene()
 /**
  * Objects
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
+// const geometry = new THREE.BoxGeometry(1, 1, 1)
+// const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+// const mesh = new THREE.Mesh(geometry, material)
+// scene.add(mesh)
 // --------------------------------- POSITION -----------------------------------------------------------------------------------------------------------------
 // position
 // MEMO : position is a Vector3
-mesh.position.x = 0.7
-mesh.position.y = -0.6
-mesh.position.z = 1
+// mesh.position.x = 0.7
+// mesh.position.y = -0.6
+// mesh.position.z = 1
 // To use all three position at once in order (x, y, z) - almost no performance difference
-mesh.position.set(0.7, -0.6, 1)
+// mesh.position.set(0.7, -0.6, 1)
 
 // --------------------------------- SCALES -----------------------------------------------------------------------------------------------------------------------
 // also Vector3
-mesh.scale.x = 2
-mesh.scale.y = 0.5
-mesh.scale.z = 0.5
+// mesh.scale.x = 2
+// mesh.scale.y = 0.5
+// mesh.scale.z = 0.5
 // as position we can set all three together
-mesh.scale.set(2, 0.5, 0.5)
+// mesh.scale.set(2, 0.5, 0.5)
 
 // --------------------------------- ROTATION -----------------------------------------------------------------------------------------------------------------------
 // Two possibilities : rotation and quaternion
@@ -40,9 +40,9 @@ mesh.scale.set(2, 0.5, 0.5)
 // Be careful -> When I rotate on an axis, I might also rotate the other axis. The rotation goes by default in the x, y, z order ...
 //  we can have gimbal lock (axis not working). To fix it :
 // We can change the order with reorder (place it before your axis rotation):
-mesh.rotation.reorder('YXZ')
-mesh.rotation.x = Math.PI * 0.25
-mesh.rotation.y = Math.PI * 0.25
+// mesh.rotation.reorder('YXZ')
+// mesh.rotation.x = Math.PI * 0.25
+// mesh.rotation.y = Math.PI * 0.25
 
 // --------------------------------- QUATERNION -----------------------------------------------------------------------------------------------------------------------
 // Because axis order can be problematic -> Most engines and 3D softwares use Quaternion
@@ -65,6 +65,36 @@ scene.add(axesHelper);
 // mesh.position.normalize();
 // console.log(mesh.position.normalize)
 
+// ------------------------------- CREATION GROUPE-------------------------------------------------------------------------------------------------
+const group = new THREE.Group()
+// Moving the all group together
+group.position.y = 1
+group.scale.y = 2
+group.rotation.y = 1
+scene.add(group)
+
+const cube1 = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1), 
+    new THREE.MeshBasicMaterial({ color: 0xff0000 })
+)
+// insertion of the object inside the group
+group.add(cube1)
+
+const cube2 = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1), 
+    new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+)
+// moving object independantly
+cube2.position.x = -1.5
+group.add(cube2)
+
+const cube3 = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1), 
+    new THREE.MeshBasicMaterial({ color: 0x0000ff })
+)
+cube3.position.x = 1.5
+group.add(cube3)
+
 /**
  * Sizes
  */
@@ -77,16 +107,20 @@ const sizes = {
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.z = 3
+camera.position.z = 2
 scene.add(camera)
+// distance to the camera
+// console.log(mesh.position.distanceTo(camera.position))
 
 // --------------------------------- LOOK AT -----------------------------------------------------------------------------------------------------------------------
 // By default the camera is facing the center of the scene but we can make it look at the center of the 3D object
 // Target must be a Vector3 - 
-camera.lookAt(mesh.position)
+// camera.lookAt(mesh.position)
 
-// distance to the camera
-// console.log(mesh.position.distanceTo(camera.position))
+// --------------------------------- GROUP CLASS -----------------------------------------------------------------------------------------------------------------------
+
+
+
 
 /**
  * Renderer
