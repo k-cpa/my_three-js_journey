@@ -55,7 +55,7 @@ const scene = new THREE.Scene()
 // Red one = positive x // Green one = positive y // Blue one = positive z 
 // Length of visual lines is 1 unit. We can make it smaller or taller with parameters of the new THREE.AxesHelper() -> (2) or (0.5) for exemple
 const axesHelper = new THREE.AxesHelper();
-scene.add(axesHelper);
+// scene.add(axesHelper);
 
 // ------------------------------- DIFFERENTE COMMANDES UTILES POUR COMPRENDRE VECTOR 3 -------------------------------------------------------------------------------------------------
 // distance between position and center of the scene Vector3
@@ -68,9 +68,10 @@ scene.add(axesHelper);
 // ------------------------------- CREATION GROUPE-------------------------------------------------------------------------------------------------
 const group = new THREE.Group()
 // Moving the all group together
-group.position.y = 1
-group.scale.y = 2
+group.position.y = -.5
+group.scale.y = 1
 group.rotation.y = 1
+group.rotation.x = .2
 scene.add(group)
 
 const cube1 = new THREE.Mesh(
@@ -90,9 +91,10 @@ group.add(cube2)
 
 const cube3 = new THREE.Mesh(
     new THREE.BoxGeometry(1, 1, 1), 
-    new THREE.MeshBasicMaterial({ color: 0x0000ff })
+    new THREE.MeshBasicMaterial({ color: 0x0000ff, wireframe: true })
 )
 cube3.position.x = 1.5
+cube3.position.z = 1.5
 group.add(cube3)
 
 /**
@@ -107,7 +109,7 @@ const sizes = {
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.z = 2
+camera.position.z = 4
 scene.add(camera)
 // distance to the camera
 // console.log(mesh.position.distanceTo(camera.position))
